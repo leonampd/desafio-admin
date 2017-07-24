@@ -1,0 +1,27 @@
+{
+  "name": "leonam/desafio-memed",
+  "description": "Admin de medicamentos para Memed",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Leonam Pereira Dias",
+      "email": "leonam.pd@gmail.com"
+    }
+  ],
+  "require": {
+    "silex/silex":"~2.0",
+    "jdesrosiers/silex-cors-provider": "v1.4.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "6.2.3"
+  },
+  "autoload":{
+    "psr-4":{
+      "Leonam\\":"src/"
+    }
+  },
+  "autoload-dev" : {
+    "psr-4": { "Leonam\\Tests\\" : "tests/Leonam/Tests" }
+  }
+}
