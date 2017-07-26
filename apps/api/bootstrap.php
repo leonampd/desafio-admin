@@ -7,6 +7,7 @@ require 'vendor/autoload.php';
 
 use Silex\Application;
 use JDesrosiers\Silex\Provider\CorsServiceProvider;
+use Leonam\Memed\Provider\MedicamentRoute;
 
 $application = new Application();
 $application['debug'] = true;
@@ -16,5 +17,15 @@ $application['debug'] = true;
 $application->register(new CorsServiceProvider(), ["cors.allowOrigin" => "http://desafio-memed.dev"]);
 $application['cors-enabled']($application);
 
+//doctrine
+$application->register(new Silex\Provider\DoctrineServiceProvider(), array(
+    'db.options' => array(
+        'driver'   => 'pdo_sqlite',
+        'path'     => __DIR__.'/app.sqlite',
+    ),
+));
+
 // rotas
+$application->register(new MedicamentRoute());
+
 $application->run();
