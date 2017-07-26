@@ -1,7 +1,20 @@
-<phpunit bootstrap="vendor/autoload.php">
+<phpunit
+    bootstrap="vendor/autoload.php"
+    colors="false"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    addUncoveredFilesFromWhitelist="true"
+    processUncoveredFilesFromWhitelist="true"
+    >
     <testsuites>
         <testsuite name="api">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">/api/src</directory>
+        </whitelist>
+    </filter>
 </phpunit>
