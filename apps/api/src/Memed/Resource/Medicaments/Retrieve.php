@@ -6,7 +6,7 @@
 
 namespace Leonam\Memed\Resource\Medicaments;
 
-use Leonam\Memed\Repository\Medicaments as MedicamentRepository;
+use Leonam\Memed\Repository\Medicament as MedicamentRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -20,12 +20,24 @@ class Retrieve implements Base
 
     public function __invoke(Request $request = null): JsonResponse
     {
-        $json = [
-            'data' => [
-                ['slug' => 'asdfsdsdsdf123', 'ggrem' => '123', 'nome' => 'AAS'],
-                ['slug' => 'asdfsdfdsdf123', 'ggrem' => '321', 'nome' => 'Paracetamol']
-            ]
-        ];
+        $medicaments = [];
+        try {
+            $list = $this->repository->findAll();
+            foreach ($list as $medicament) {
+                $medicaments['data'][] = [
+                    'slug' => $medicament->getSlug(),
+                    'nome' => $medicament->getNome(),
+                    'ggrem' => $medicament->getGgrem()
+                ];
+            }
+            return new JsonResponse($medicaments);
+        } catch (\Exception $exception) {
+            $json = [
+                'data' => [
+                    'error' => ['code' => 500, 'message'=> 'Problemas internos no servidor']
+                ]
+            ];
+        }
         return new JsonResponse($json);
     }
 

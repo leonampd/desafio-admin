@@ -6,29 +6,34 @@
 
 namespace Leonam\Memed\Repository;
 
-use Doctrine\DBAL\Query\QueryBuilder as DoctrineQueryBuilder;
+use Doctrine\DBAL\ConnectionException;
+use Doctrine\DBAL\Connection as DoctrineConnection;
 use Leonam\Memed\Entity\Medicament as MedicamentEntity;
 
 class Medicament implements BaseRepository
 {
-    protected $queryBuilder;
-    public function __construct(DoctrineQueryBuilder $queryBuilder)
+    protected $connection;
+    public function __construct(DoctrineConnection $connection)
     {
-        $this->queryBuilder = $queryBuilder;
+        $this->connection = $connection;
     }
 
     public function findAll():array
     {
-        $medsQuery = $this->queryBuilder
-            ->select('ggrem, nome')
-            ->from('medicaments');
-        $resultSetMedicaments = $medsQuery->execute();
-
         $list = [];
-        foreach ($resultSetMedicaments as $medicament) {
-            $list[] = new MedicamentEntity($medicament['ggrem'], $medicament['nome']);
+        try {
+            $rs = $this->connection->fetchAll('SELECT rowid, slug, ggrem, nome FROM medicaments');
+
+            foreach ($rs as $row) {
+                $medicament = new MedicamentEntity($row['ggrem'], $row['nome']);
+                $medicament->setSlug( $row['slug'] )
+                    ->setId($row['rowid']);
+                $list[] = $medicament;
+            }
+            return $list;
+        } catch (ConnectionException $connection_exception) {
+            throw $connection_exception;
         }
-        return $list;
     }
 
     public function findOne(array $criteria)

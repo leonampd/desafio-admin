@@ -8,27 +8,21 @@ namespace Leonam\Memed\Tests\Repository;
 
 use Leonam\Memed\Entity\Medicament;
 use Leonam\Memed\Repository\Medicament as MedicamentRepository;
-use Doctrine\DBAL\Query\QueryBuilder as DoctrineQueryBuilder;
+use Doctrine\DBAL\Connection as DoctrineConnection;
 use PHPUnit\Framework\TestCase;
 
 class MedicamentTest extends TestCase
 {
     public function testIfFindAllReturnsAMedicamentsArray()
     {
-        $doctrineQueryBuilder = $this->getMockBuilder(DoctrineQueryBuilder::class)
+        $doctrineQueryBuilder = $this->getMockBuilder(DoctrineConnection::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $doctrineQueryBuilder->method('select')
-            ->willReturn($doctrineQueryBuilder);
-
-        $doctrineQueryBuilder->method('from')
-            ->willReturn($doctrineQueryBuilder);
-
-        $doctrineQueryBuilder->method('execute')
+        $doctrineQueryBuilder->method('fetchAll')
             ->willReturn([
-                ['ggrem' => '1234', 'nome' => 'AAS'],
-                ['ggrem' => '1334', 'nome' => 'Paracetamol'],
+                ['rowid' => '1', 'slug' => 'lisdbfn9826234', 'ggrem' => '1234', 'nome' => 'AAS'],
+                ['rowid' => '2', 'slug' => 'lisdbfn9826234', 'ggrem' => '1334', 'nome' => 'Paracetamol'],
             ]);
 
         $repository = new MedicamentRepository($doctrineQueryBuilder);

@@ -21,7 +21,7 @@ $application['cors-enabled']($application);
 $application->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'db.options' => array(
         'driver'   => 'pdo_sqlite',
-        'path'     => __DIR__.'/app.sqlite',
+        'path'     => __DIR__.'/memed.db',
     ),
 ));
 

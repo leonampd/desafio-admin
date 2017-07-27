@@ -6,7 +6,7 @@
 
 namespace Leonam\Memed\Resource\Medicaments;
 
-use Leonam\Memed\Repository\Medicaments as MedicamentRepository;
+use Leonam\Memed\Repository\Medicament as MedicamentRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 

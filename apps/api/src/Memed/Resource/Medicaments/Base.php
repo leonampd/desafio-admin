@@ -9,7 +9,7 @@ namespace Leonam\Memed\Resource\Medicaments;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-use \Leonam\Memed\Repository\Medicaments as MedicamentRepository;
+use \Leonam\Memed\Repository\Medicament as MedicamentRepository;
 
 interface Base
 {
