@@ -1,0 +1,22 @@
+{
+  "name": "desafio-admin",
+  "description": "",
+  "main": "gulpfile.js",
+  "authors": [
+    "Leonam Pereira Dias"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/leonampd/desafio-admin",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "assets/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "mustache.js": "mustache#^2.3.0"
+  }
+}
