@@ -6,19 +6,29 @@
 
 namespace Leonam\Memed\Repository;
 
-use Leonam\Memed\Persister\Persister;
+use Doctrine\DBAL\Query\QueryBuilder as DoctrineQueryBuilder;
+use Leonam\Memed\Entity\Medicament as MedicamentEntity;
 
 class Medicament implements BaseRepository
 {
-    protected $persister;
-    public function __construct(Persister $persister = null)
+    protected $queryBuilder;
+    public function __construct(DoctrineQueryBuilder $queryBuilder)
     {
-        $this->persister = $persister;
+        $this->queryBuilder = $queryBuilder;
     }
 
-    public function findAll()
+    public function findAll():array
     {
-        return [];
+        $medsQuery = $this->queryBuilder
+            ->select('ggrem, nome')
+            ->from('medicaments');
+        $resultSetMedicaments = $medsQuery->execute();
+
+        $list = [];
+        foreach ($resultSetMedicaments as $medicament) {
+            $list[] = new MedicamentEntity($medicament['ggrem'], $medicament['nome']);
+        }
+        return $list;
     }
 
     public function findOne(array $criteria)
