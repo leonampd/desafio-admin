@@ -10,12 +10,14 @@ use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
 use Leonam\Memed\Resource\Medicaments\Create as CreateMedicament;
+use Leonam\Memed\Resource\Medicaments\Retrieve as RetrieveMedicament;
 
 class MedicamentRoute implements ServiceProviderInterface
 {
     public function register(Container $container)
     {
-        $container->get('/medicaments', new CreateMedicament());
+        $container->get('/medicaments', new RetrieveMedicament());
+        $container->post('/medicaments', new CreateMedicament());
         return $container;
     }
 }

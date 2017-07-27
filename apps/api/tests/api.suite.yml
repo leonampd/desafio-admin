@@ -1,4 +1,7 @@
 actor: ApiTester
 modules:
     enabled:
-        - \Helper\Api
+        - REST:
+            url: http://api.desafio-memed.dev:8080
+            depends: PhpBrowser
+            part: Json
