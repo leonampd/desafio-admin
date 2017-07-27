@@ -24,6 +24,11 @@ class Medicament
     protected $ggrem;
 
     /**
+     * @var string nome do remedio
+     */
+    protected $nome;
+
+    /**
      * Medicament constructor.
      *
      * @param string $ggrem
@@ -114,8 +119,22 @@ class Medicament
         return $this;
     }
 
-    /**
-     * @var string nome do remedio
-     */
-    protected $nome;
+    public static function medicamentIsValid(Medicament $medicament)
+    {
+        if (
+            !preg_match('/([0-9]+)/', $medicament->getGgrem()) ||
+            !preg_match('/([a-zA-Z0-9\s])/', $medicament->getNome())
+        ) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static function createSlugForMedicament(Medicament $medicament)
+    {
+        $medicament->setSlug( sha1($medicament->getNome()) );
+
+        return $medicament;
+    }
 }

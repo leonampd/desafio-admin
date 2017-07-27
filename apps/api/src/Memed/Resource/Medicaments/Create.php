@@ -6,6 +6,7 @@
 
 namespace Leonam\Memed\Resource\Medicaments;
 
+use Leonam\Memed\Entity\Medicament;
 use Leonam\Memed\Repository\Medicament as MedicamentRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +21,18 @@ class Create implements Base
 
     public function __invoke(Request $request = null): JsonResponse
     {
-        return new JsonResponse(['data' => []]);
+        $request_fields['nome'] = $request->request->get('nome');
+        $request_fields['ggrem'] = $request->request->get('ggrem');
+
+        $result = $this->repository->save($request_fields);
+        $data['error'] = ['code' => '500', 'mensagem' => 'Problemas ao inserir o medicamento'];
+        if ($result instanceof Medicament) {
+            $data = [];
+            $data['slug'] = $result->getSlug();
+            $data['ggrem'] = $result->getGgrem();
+            $data['nome'] = $result->getNome();
+        }
+        return new JsonResponse(['data' => $data], 201);
     }
 
 }
