@@ -15,7 +15,8 @@
     "doctrine/dbal": "~v2.6"
   },
   "require-dev": {
-    "phpunit/phpunit": "6.2.3"
+    "phpunit/phpunit": "6.2.3",
+    "codeception/base": "*"
   },
   "autoload":{
     "psr-4":{

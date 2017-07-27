@@ -2,3 +2,4 @@
 .idea/
 vendor
 apps/api/coverage
+apps/api/tests/_*
