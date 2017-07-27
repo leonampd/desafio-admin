@@ -1,13 +1,58 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Desafio Admin - Memed</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="assets/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="assets/bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
 </head>
 <body>
+    <div class="container">
+        <header>
+        </header>
 
+        <div class="panel panel-default">
+            <div class="panel-heading">Banco de medicamentos</div>
+            <div class="panel-body">
+                <p>Banco de medicamentos</p>
+            </div>
+
+            <!-- Table -->
+            <table id="medicamentos" class="table">
+                <thead>
+                    <th>Nome</th>
+                    <th>GGREM</th>
+                    <th>Criado em</th>
+                    <th>Atualizado em</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Paracetamol</td>
+                        <td>123123</td>
+                        <td>12/09/1991 às 21 horas</td>
+                        <td>12/09/1992 às 21 horas</td>
+                    </tr>
+                    <tr>
+                        <td>Paracetamol</td>
+                        <td>123123</td>
+                        <td>12/09/1991 às 21 horas</td>
+                        <td>12/09/1992 às 21 horas</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script id="linha-medicamento-template" type="x-tmpl-mustache">
+        <tr>
+            <td>{{nome}}</td>
+            <td>{{ggrem}}</td>
+            <td>{{data_criacao}}</td>
+            <td>{{data_atualizacao}}</td>
+        </tr>
+    </script>
 </body>
 </html>
