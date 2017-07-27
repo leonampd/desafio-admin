@@ -34,7 +34,8 @@ class Medicament
      * @param string $ggrem
      * @param string $nome
      */
-    public function __construct(string $ggrem, string $nome) {
+    public function __construct(string $ggrem, string $nome)
+    {
         $this->ggrem = $ggrem;
         $this->nome = $nome;
     }
@@ -121,8 +122,7 @@ class Medicament
 
     public static function medicamentIsValid(Medicament $medicament)
     {
-        if (
-            !preg_match('/([0-9]+)/', $medicament->getGgrem()) ||
+        if (!preg_match('/([0-9]+)/', $medicament->getGgrem()) ||
             !preg_match('/([a-zA-Z0-9\s])/', $medicament->getNome())
         ) {
             return false;
@@ -133,7 +133,7 @@ class Medicament
 
     public static function createSlugForMedicament(Medicament $medicament)
     {
-        $medicament->setSlug( sha1($medicament->getNome()) );
+        $medicament->setSlug(sha1($medicament->getNome()));
 
         return $medicament;
     }

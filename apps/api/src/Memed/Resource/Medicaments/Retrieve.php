@@ -40,5 +40,4 @@ class Retrieve implements Base
         }
         return new JsonResponse($json);
     }
-
 }

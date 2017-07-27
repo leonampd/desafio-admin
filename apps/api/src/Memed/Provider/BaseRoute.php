@@ -6,7 +6,6 @@
 
 namespace Leonam\Memed\Provider;
 
-
 use Symfony\Component\HttpFoundation\Request;
 
 interface BaseRoute

@@ -18,7 +18,7 @@ class MedicamentRoute implements ServiceProviderInterface
 {
     public function register(Container $container)
     {
-        $repository = new MedicamentRepository( $container['db'] );
+        $repository = new MedicamentRepository($container['db']);
         $container->get('/medicaments', new RetrieveMedicament($repository));
         $container->post('/medicaments', new CreateMedicament($repository));
         return $container;

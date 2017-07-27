@@ -6,11 +6,9 @@
 
 namespace Leonam\Memed\Repository;
 
-
 interface BaseRepository
 {
     public function findAll();
     public function findOne(array $criteria);
     public function save(array $data);
-
 }

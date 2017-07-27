@@ -21,10 +21,10 @@ class Create implements Base
 
     public function __invoke(Request $request = null): JsonResponse
     {
-        $request_fields['nome'] = $request->request->get('nome');
-        $request_fields['ggrem'] = $request->request->get('ggrem');
+        $requestFields['nome'] = $request->request->get('nome');
+        $requestFields['ggrem'] = $request->request->get('ggrem');
 
-        $result = $this->repository->save($request_fields);
+        $result = $this->repository->save($requestFields);
         $data['error'] = ['code' => '500', 'mensagem' => 'Problemas ao inserir o medicamento'];
         if ($result instanceof Medicament) {
             $data = [];
@@ -34,5 +34,4 @@ class Create implements Base
         }
         return new JsonResponse(['data' => $data], 201);
     }
-
 }

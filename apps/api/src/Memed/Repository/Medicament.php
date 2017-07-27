@@ -27,13 +27,13 @@ class Medicament implements BaseRepository
 
             foreach ($rs as $row) {
                 $medicament = new MedicamentEntity($row['ggrem'], $row['nome']);
-                $medicament->setSlug( $row['slug'] )
+                $medicament->setSlug($row['slug'])
                     ->setId($row['rowid']);
                 $list[] = $medicament;
             }
             return $list;
-        } catch (ConnectionException $connection_exception) {
-            throw $connection_exception;
+        } catch (ConnectionException $connectionException) {
+            throw $connectionException;
         }
     }
 
@@ -64,10 +64,9 @@ class Medicament implements BaseRepository
             $medicament = new MedicamentEntity($data['ggrem'], $data['nome']);
             $this->saveMedicament($medicament);
             return $medicament;
-        } catch(\Exception $exception) {
+        } catch (\Exception $exception) {
             echo $exception->getMessage();
             return $exception->getMessage();
         }
     }
-
 }
