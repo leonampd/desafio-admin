@@ -9,9 +9,35 @@
     <link rel="stylesheet" href="style.css">
     <script src="assets/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="assets/bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
+    <script src="assets/bower_components/mustache.js/mustache.js"></script>
+    <script src="assets/js/application.js"></script>
 </head>
 <body>
     <div class="container">
+        <div id="form-medicamento-modal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Medicamento</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nome</label>
+                                <input type="email" class="form-control" id="nome" placeholder="Roacutan">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">GGREM</label>
+                                <input type="text" class="form-control" id="ggrem" placeholder="123456">
+                            </div>
+                            <button type="submit" class="btn btn-default">Atualizar</button>
+                        </form>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
         <header>
         </header>
 
@@ -30,24 +56,14 @@
                     <th>Atualizado em</th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Paracetamol</td>
-                        <td>123123</td>
-                        <td>12/09/1991 às 21 horas</td>
-                        <td>12/09/1992 às 21 horas</td>
-                    </tr>
-                    <tr>
-                        <td>Paracetamol</td>
-                        <td>123123</td>
-                        <td>12/09/1991 às 21 horas</td>
-                        <td>12/09/1992 às 21 horas</td>
-                    </tr>
+
                 </tbody>
             </table>
         </div>
     </div>
+
     <script id="linha-medicamento-template" type="x-tmpl-mustache">
-        <tr>
+        <tr data-ggrem="{{ggrem}}" data-nome="{{nome}}">
             <td>{{nome}}</td>
             <td>{{ggrem}}</td>
             <td>{{data_criacao}}</td>
