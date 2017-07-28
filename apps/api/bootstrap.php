@@ -14,7 +14,7 @@ $application['debug'] = true;
 
 // service providers
 // cors
-$application->register(new CorsServiceProvider(), ["cors.allowOrigin" => "http://desafio-memed.dev"]);
+$application->register(new CorsServiceProvider());
 $application['cors-enabled']($application);
 
 //doctrine
