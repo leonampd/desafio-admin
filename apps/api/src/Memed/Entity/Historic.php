@@ -9,6 +9,15 @@ namespace Leonam\Memed\Entity;
 
 class Historic
 {
+    const UPDATE = 'update';
+    const CREATE = 'create';
+    const DELETE = 'delete';
+
+    /**
+     * @var \Leonam\Memed\Entity\Medicament
+     */
+    protected $medicament;
+
     /**
      * @var string
      */
@@ -45,18 +54,34 @@ class Historic
      * @param string $action
      * @param string $oldValue
      * @param string $newValue
-     * @param \DateTime|null $time
+     * @param \DateTime|null $date
      */
-    public function __construct(string $action, string $oldValue, string $newValue, \DateTime $time = null)
-    {
+    public function __construct(
+        Medicament $medicament,
+        string $action,
+        string $field,
+        string $oldValue,
+        string $newValue,
+        \DateTime $date = null
+    ) {
+        $this->medicament = $medicament;
         $this->action = $action;
+        $this->field = $field;
         $this->oldValue = $oldValue;
         $this->newValue = $newValue;
-        $this->timestamp = $time;
+        $this->date = $date;
 
-        if (null === $time) {
-            $this->timestamp = new \DateTime('now');
+        if (null === $date) {
+            $this->date = new \DateTime('now');
         }
+    }
+
+    /**
+     * @return \Leonam\Memed\Entity\Medicament
+     */
+    public function getMedicament(): \Leonam\Memed\Entity\Medicament
+    {
+        return $this->medicament;
     }
 
     /**
@@ -150,7 +175,7 @@ class Historic
      */
     public function getDate(): \DateTime
     {
-        return $this->timestamp;
+        return $this->date;
     }
 
     /**

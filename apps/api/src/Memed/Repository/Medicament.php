@@ -107,15 +107,66 @@ class Medicament implements BaseRepository
             $time->setTimestamp($historic_bd['timestamp']);
 
             $historicItem = new Historic(
+                $medicament,
                 $historic_bd['action'],
+                $historic_bd['field'],
                 $historic_bd['old_value'],
                 $historic_bd['new_value'],
                 $time
             );
-            $historicItem->setUsername($historic_bd['username'])
-                         ->setField($historic_bd['field']);
+            $historicItem->setUsername($historic_bd['username']);
             $historic[] = $historicItem;
         }
         return $historic;
+    }
+
+    public function saveHistoric(Historic $historic)
+    {
+        try {
+            $this->connection->insert(
+                'historic',
+                [
+                    'field' => $historic->getField(),
+                    'action' => $historic->getAction(),
+                    'new_value' => $historic->getNewValue(),
+                    'old_value' => $historic->getOldValue(),
+                    'timestamp' => $historic->getDate()->getTimestamp(),
+                    'medicament_id' => $historic->getMedicament()->getId(),
+                    'username' => $historic->getUsername()
+                ]
+            );
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
+    }
+
+    public function updateMedicament(MedicamentEntity $medicament, array $historicItens)
+    {
+        try {
+            $updates = [];
+            foreach ($historicItens as $historic) {
+                $updates[ $historic->getField() ] = $historic->getNewValue();
+            }
+            $this->connection->beginTransaction();
+            $this->connection->update(
+                'medicaments',
+                $updates,
+                ['slug' => $medicament->getSlug()]
+            );
+            foreach ($historicItens as $historic) {
+                $this->saveHistoric($historic);
+            }
+            $this->connection->commit();
+            return true;
+        } catch (\Exception $exception) {
+            $this->connection->rollBack();
+            echo $exception->getMessage();
+            return false;
+        }
+    }
+
+    public function update($oldValue, $newValue)
+    {
+        return $this->updateMedicament($oldValue, $newValue);
     }
 }

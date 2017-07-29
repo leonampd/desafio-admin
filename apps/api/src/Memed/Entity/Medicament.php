@@ -39,7 +39,7 @@ class Medicament
      * @param string $ggrem
      * @param string $nome
      */
-    public function __construct(string $ggrem, string $nome)
+    public function __construct(string $ggrem = null, string $nome = null)
     {
         $this->ggrem = $ggrem;
         $this->nome = $nome;

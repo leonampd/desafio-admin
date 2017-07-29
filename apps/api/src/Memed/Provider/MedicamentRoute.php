@@ -12,14 +12,18 @@ use Pimple\ServiceProviderInterface;
 
 use Leonam\Memed\Resource\Medicaments\Create as CreateMedicament;
 use Leonam\Memed\Resource\Medicaments\Retrieve as RetrieveMedicament;
+use Leonam\Memed\Resource\Medicaments\Update as UpdateMedicament;
 use Leonam\Memed\Resource\Medicaments\RetrieveHistoric as RetrieveHistoricMedicament;
 use Leonam\Memed\Repository\Medicament as MedicamentRepository;
+use Silex\Application;
+use Symfony\Component\HttpFoundation\Request;
 
 class MedicamentRoute implements ServiceProviderInterface
 {
     public function register(Container $container)
     {
         $repository = new MedicamentRepository($container['db']);
+
         $container->get('/medicaments', new RetrieveMedicament($repository));
         $container->post('/medicaments', new CreateMedicament($repository));
 
@@ -27,6 +31,13 @@ class MedicamentRoute implements ServiceProviderInterface
             $retrieve = new RetrieveHistoricMedicament($repository);
             $retrieve->setMedicamentSlug($slug);
             return $retrieve();
+        });
+
+        $container->put('/medicaments/{slug}', function (Request $request, $slug) use ($repository) {
+            $update = new UpdateMedicament($repository);
+            $update->setMedicamentSlug($slug);
+
+            return $update($request);
         });
 
         return $container;
