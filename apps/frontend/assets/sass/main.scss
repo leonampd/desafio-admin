@@ -1,1 +1,28 @@
 @import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+
+.historico {
+  color: #bbb;
+  .lista-historico {
+    li {
+      font-style: italic;
+      .usuario {
+        font-style: normal;
+        color: #bbbbbb;
+        font-weight: bold;
+      }
+      .acao {
+        &.atualizacao {
+          color: orange;
+        }
+      }
+      .valor {
+        font-style: normal;
+        color: #333;
+      }
+      .data {
+        color: gold;
+        font-style: normal;
+      }
+    }
+  }
+}

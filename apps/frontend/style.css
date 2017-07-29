@@ -8353,3 +8353,31 @@ button.close {
     display: none !important;
   }
 }
+
+.historico {
+  color: #bbb;
+}
+
+.historico .lista-historico li {
+  font-style: italic;
+}
+
+.historico .lista-historico li .usuario {
+  font-style: normal;
+  color: #bbbbbb;
+  font-weight: bold;
+}
+
+.historico .lista-historico li .acao.atualizacao {
+  color: orange;
+}
+
+.historico .lista-historico li .valor {
+  font-style: normal;
+  color: #333;
+}
+
+.historico .lista-historico li .data {
+  color: gold;
+  font-style: normal;
+}

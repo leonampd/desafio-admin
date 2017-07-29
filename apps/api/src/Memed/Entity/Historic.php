@@ -37,7 +37,7 @@ class Historic
     /**
      * @var \DateTime
      */
-    protected $timestamp;
+    protected $date;
 
     /**
      * Historic constructor.
@@ -148,7 +148,7 @@ class Historic
     /**
      * @return \DateTime
      */
-    public function getTimestamp(): \DateTime
+    public function getDate(): \DateTime
     {
         return $this->timestamp;
     }
@@ -156,8 +156,8 @@ class Historic
     /**
      * @param \DateTime $timestamp
      */
-    public function setTimestamp(\DateTime $timestamp)
+    public function setDate(\DateTime $date)
     {
-        $this->timestamp = $timestamp;
+        $this->date = $date;
     }
 }

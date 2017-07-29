@@ -56,15 +56,11 @@ class RetrieveHistoric implements Base
                     'field' => $item->getField(),
                     'old_value' => $item->getOldValue(),
                     'new_value' => $item->getNewValue(),
-                    'timestamp' => $item->getField(),
+                    'timestamp' => $item->getDate()->getTimestamp(),
+                    'datetime' => $item->getDate()->format('d/m/Y H:i')
                 ];
             }
-            return new JsonResponse(
-                [
-                    'data' => $historicArray
-                ]
-                , 200
-            );
+            return new JsonResponse(['data' => $historicArray], 200);
         } catch (\Exception $exception) {
             return new JsonResponse(
                 [

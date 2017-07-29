@@ -22,17 +22,30 @@
                         <h4 class="modal-title">Medicamento</h4>
                     </div>
                     <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nome</label>
-                                <input type="email" class="form-control" id="nome" placeholder="Roacutan">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Nome</label>
+                                        <input type="text" class="form-control" id="nome" placeholder="Roacutan">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">GGREM</label>
+                                        <input type="text" class="form-control" id="ggrem" placeholder="123456">
+                                    </div>
+                                    <input type="hidden" name="slug" id="slug">
+                                    <button type="submit" class="btn btn-default">Atualizar</button>
+                                </form>
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">GGREM</label>
-                                <input type="text" class="form-control" id="ggrem" placeholder="123456">
+                        </div>
+                        <div class="row historico">
+                            <div class="col-md-12">
+                                <h4>Histórico</h4>
+                                <ul id="lista-historico" class="lista-historico">
+                                    <li>Nenhum registro para o medicamento selecionado</li>
+                                </ul>
                             </div>
-                            <button type="submit" class="btn btn-default">Atualizar</button>
-                        </form>
+                        </div>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -63,12 +76,22 @@
     </div>
 
     <script id="linha-medicamento-template" type="x-tmpl-mustache">
-        <tr data-ggrem="{{ggrem}}" data-nome="{{nome}}">
+        <tr data-ggrem="{{ggrem}}" data-slug="{{slug}}" data-nome="{{nome}}">
             <td>{{nome}}</td>
             <td>{{ggrem}}</td>
             <td>{{data_criacao}}</td>
             <td>{{data_atualizacao}}</td>
         </tr>
+    </script>
+    <script id="linha-historico-medicamento-template" type="x-tmpl-mustache">
+        <li>
+            <span class="usuario">{{usuario}}</span>
+            <span class="acao atualizacao">{{acao}}</span>
+            <span class="campo">{{campo}}</span> de
+            <span class="valor anterior">{{valor_anterior}}</span> para
+            <span class="valor novo">{{valor_novo}}</span> em
+            <span class="data">{{data_atualizacao}}</span>
+        </li>
     </script>
 </body>
 </html>
