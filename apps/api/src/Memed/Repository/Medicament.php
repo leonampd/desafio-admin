@@ -9,6 +9,7 @@ namespace Leonam\Memed\Repository;
 use Doctrine\DBAL\ConnectionException;
 use Doctrine\DBAL\Connection as DoctrineConnection;
 use Leonam\Memed\Entity\Medicament as MedicamentEntity;
+use Leonam\Memed\Entity\Historic;
 use Psr\Log\InvalidArgumentException;
 
 class Medicament implements BaseRepository
@@ -39,7 +40,25 @@ class Medicament implements BaseRepository
 
     public function findOne(array $criteria)
     {
-        // TODO: Implement findOne() method.
+        if (array_key_exists('slug', $criteria)) {
+            $fields_values[] = $criteria['slug'];
+        }
+
+        if (array_key_exists('nome', $criteria)) {
+            $fields_values[] = $criteria['nome'];
+        }
+        try {
+            $result = $this->connection
+                ->fetchAssoc('SELECT rowid, * FROM medicaments WHERE slug = ? OR nome LIKE ?', $fields_values);
+            if ($result) {
+                $medicament = new MedicamentEntity($result['ggrem'], $result['nome']);
+                $medicament->setSlug($result['slug']);
+                $medicament->setId($result['rowid']);
+                return $medicament;
+            }
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
     }
 
     public function saveMedicament(MedicamentEntity &$medicament)
@@ -68,5 +87,35 @@ class Medicament implements BaseRepository
             echo $exception->getMessage();
             return $exception->getMessage();
         }
+    }
+
+    public function getHistoric(MedicamentEntity $medicament): array
+    {
+        $result = $this->connection
+            ->fetchAll(
+                'SELECT * FROM historic WHERE medicament_id = ?',
+                array($medicament->getId())
+            );
+
+        $historic = [];
+        if (!$result) {
+            return $historic;
+        }
+
+        foreach ($result as $historic_bd) {
+            $time = new \DateTime();
+            $time->setTimestamp($historic_bd['timestamp']);
+
+            $historicItem = new Historic(
+                $historic_bd['action'],
+                $historic_bd['old_value'],
+                $historic_bd['new_value'],
+                $time
+            );
+            $historicItem->setUsername($historic_bd['username'])
+                         ->setField($historic_bd['field']);
+            $historic[] = $historicItem;
+        }
+        return $historic;
     }
 }

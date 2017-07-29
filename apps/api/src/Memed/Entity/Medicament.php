@@ -29,6 +29,11 @@ class Medicament
     protected $nome;
 
     /**
+     * @var array
+     */
+    protected $historic;
+
+    /**
      * Medicament constructor.
      *
      * @param string $ggrem
@@ -116,6 +121,18 @@ class Medicament
     public function setNome(string $nome): Medicament
     {
         $this->nome = $nome;
+
+        return $this;
+    }
+
+    public function getHistoric()
+    {
+        return $this->historic;
+    }
+
+    public function setHistoric(array $historic)
+    {
+        $this->historic = $historic;
 
         return $this;
     }
