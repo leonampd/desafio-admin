@@ -96,9 +96,9 @@ var updateMedicament = function () {
 
     var url = '/medicaments/' + slug;
     MemedAPI.put(url, {'nome': nome,  'ggrem': ggrem}, function () {
-        modal.find('#feedback .sucesso').fadeToggle();
+        modal.find('#feedback .sucesso').fadeToggle().delay(3000).fadeToggle();
     }, function () {
-        modal.find('#feedback .erro').fadeToggle();
+        modal.find('#feedback .erro').fadeToggle().delay(3000).fadeToggle();
     });
 }
 
