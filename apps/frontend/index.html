@@ -25,6 +25,14 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <form>
+                                    <div id="feedback">
+                                        <div class="alert alert-success sucesso">
+                                            <strong>Pronto!</strong> Medicamento atualizado com sucesso.
+                                        </div>
+                                        <div class="alert alert-danger erro">
+                                            <strong>Ops!</strong> Não foi possível atualizar o medicamento.
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Nome</label>
                                         <input type="text" class="form-control" id="nome" placeholder="Roacutan">
@@ -34,7 +42,7 @@
                                         <input type="text" class="form-control" id="ggrem" placeholder="123456">
                                     </div>
                                     <input type="hidden" name="slug" id="slug">
-                                    <button type="submit" class="btn btn-default">Atualizar</button>
+                                    <button id="modal-action-button" type="button" class="btn btn-default">Atualizar</button>
                                 </form>
                             </div>
                         </div>

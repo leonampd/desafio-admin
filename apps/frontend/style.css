@@ -8354,6 +8354,10 @@ button.close {
   }
 }
 
+#feedback>div {
+  display: none;
+}
+
 .historico {
   color: #bbb;
 }

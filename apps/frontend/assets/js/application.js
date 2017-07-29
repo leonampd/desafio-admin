@@ -1,19 +1,28 @@
 var MemedAPI = {
     api_url: 'http://api.desafio-memed.dev:8080',
-
-    get: function(url, params, callback){
+    request: function(method, url, params, successCalback, errorCallback) {
         var requestUrl = this.api_url + url;
         jQuery.ajax({
             url: requestUrl,
             data: params,
-            method: 'GET'
+            method: method,
         }).done(function (response) {
-            if (typeof callback !== 'undefined') {
-                callback(response.data);
+            if (typeof successCalback !== 'undefined') {
+                successCalback(response.data);
+            }
+        }).fail(function () {
+            if (typeof errorCalback !== 'undefined') {
+                errorCalback(response.data);
             }
         });
+    },
+    get: function(url, params, callback){
+        this.request('GET', url, params, callback);
+    },
+    put: function (url, params, sucessCallback, errorCallcback) {
+        this.request('PUT', url, params,  sucessCallback, errorCallcback);
     }
-}
+};
 
 var updateMedsTable = function (jsonMeds) {
     var template = jQuery('#linha-medicamento-template').html();
@@ -78,10 +87,26 @@ var openModal = function () {
     modal.modal('show');
 }
 
+var updateMedicament = function () {
+    var slug, nome, ggrem, modal;
+    modal = jQuery('#form-medicamento-modal');
+    nome = modal.find('#nome').val();
+    ggrem = modal.find('#ggrem').val();
+    slug = modal.find('#slug').val();
+
+    var url = '/medicaments/' + slug;
+    MemedAPI.put(url, {'nome': nome,  'ggrem': ggrem}, function () {
+        modal.find('#feedback .sucesso').fadeToggle();
+    }, function () {
+        modal.find('#feedback .erro').fadeToggle();
+    });
+}
+
 var clickForMedsRow = function () {
     jQuery('#medicamentos tbody tr').on('click', openModal);
 }
 
 jQuery(document).ready(function(){
     MemedAPI.get('/medicaments', {}, updateMedsTable);
+    jQuery('#modal-action-button').click(updateMedicament);
 });

@@ -1,5 +1,9 @@
 @import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
-
+#feedback {
+  > div {
+    display: none;
+  }
+}
 .historico {
   color: #bbb;
   .lista-historico {
