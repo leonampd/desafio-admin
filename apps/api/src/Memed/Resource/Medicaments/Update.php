@@ -6,7 +6,6 @@
 
 namespace Leonam\Memed\Resource\Medicaments;
 
-
 use Leonam\Memed\Entity\Historic;
 use Leonam\Memed\Entity\Medicament;
 use Leonam\Memed\Repository\Medicament as MedicamentRepository;
@@ -60,8 +59,7 @@ class Update implements Base
         $update = [];
 
         $nomeInput = $request->request->get('nome') ?? '';
-        if (
-            !empty($nomeInput) &&
+        if (!empty($nomeInput) &&
             v::noneOf(v::punct())->stringType()->validate($nomeInput) &&
             $nomeInput !== $medicament->getNome()
         ) {
@@ -78,8 +76,7 @@ class Update implements Base
         }
 
         $ggremInput = $request->request->get('ggrem') ?? '';
-        if (
-            !empty($ggremInput) &&
+        if (!empty($ggremInput) &&
             v::numeric()->positive() &&
             $ggremInput !== $medicament->getGgrem()
         ) {

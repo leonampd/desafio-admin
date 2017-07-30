@@ -26,7 +26,7 @@ class Medicament implements BaseRepository
         try {
 //            $rs = $this->connection->fetchAll('SELECT rowid, slug, ggrem, nome FROM medicaments');
 
-            array_walk($criteria, function(&$item, $key){
+            array_walk($criteria, function (&$item, $key) {
                 $item = '%'.trim($item).'%';
             });
             $queryBuilder = $this->connection->createQueryBuilder();

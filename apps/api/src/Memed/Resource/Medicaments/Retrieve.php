@@ -23,8 +23,7 @@ class Retrieve implements Base
     {
         $search = $request->query->get('search');
 
-        if (
-            v::notEmpty()->validate($search) &&
+        if (v::notEmpty()->validate($search) &&
             !(v::when(v::numeric(), v::positive(), v::stringType())->validate($search))
         ) {
             return new JsonResponse(

@@ -6,7 +6,6 @@
 
 namespace Leonam\Memed\Entity;
 
-
 class Historic
 {
     const UPDATE = 'update';
