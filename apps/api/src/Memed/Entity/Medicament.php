@@ -34,6 +34,16 @@ class Medicament
     protected $historic;
 
     /**
+     * @var \DateTime
+     */
+    protected $created_at;
+
+    /**
+     * @var \DateTime
+     */
+    protected $updated_at;
+
+    /**
      * Medicament constructor.
      *
      * @param string $ggrem
@@ -125,7 +135,7 @@ class Medicament
         return $this;
     }
 
-    public function getHistoric()
+    public function getHistoric(): array
     {
         return $this->historic;
     }
@@ -136,6 +146,52 @@ class Medicament
 
         return $this;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param \DateTime $created_at
+     */
+    public function setCreatedAt(\DateTime $created_at)
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    /**
+     * @return var bool
+     */
+    public function isUpdated()
+    {
+        return null !== $this->updated_at ? true : false;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt(): \DateTime
+    {
+        return $this->updated_at ?? new \DateTime();
+    }
+
+    /**
+     * @param \DateTime $updated_at
+     */
+    public function setUpdatedAt(\DateTime $updated_at)
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+
 
     public static function medicamentIsValid(Medicament $medicament)
     {

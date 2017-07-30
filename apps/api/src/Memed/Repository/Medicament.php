@@ -29,7 +29,7 @@ class Medicament implements BaseRepository
             });
             $queryBuilder = $this->connection->createQueryBuilder();
             $queryBuilder
-                ->select('rowid', 'slug', 'ggrem', 'nome')
+                ->select('rowid', 'slug', 'ggrem', 'nome', 'data_criacao', 'data_atualizacao')
                 ->from('medicaments');
             if (count($criteria) > 0) {
                  $queryBuilder->where(
@@ -40,12 +40,24 @@ class Medicament implements BaseRepository
                  );
             }
             $queryBuilder->orderBy('nome', 'ASC');
-
             $result = $this->connection->fetchAll($queryBuilder->getSQL());
             foreach ($result as $row) {
                 $medicament = new MedicamentEntity($row['ggrem'], $row['nome']);
-                $medicament->setSlug($row['slug'])
+
+                $medicament
+                    ->setSlug($row['slug'])
                     ->setId($row['rowid']);
+
+                $created_at = new \DateTime();
+                $created_at->setTimestamp($row['data_criacao']);
+                $medicament->setCreatedAt($created_at);
+
+
+                if (isset($row['data_atualizacao']) && null !== $row['data_atualizacao']) {
+                    $updated_at = clone $created_at;
+                    $updated_at->setTimestamp($row['data_atualizacao']);
+                    $medicament->setUpdatedAt($updated_at);
+                }
                 $list[] = $medicament;
             }
             return $list;

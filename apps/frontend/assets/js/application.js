@@ -35,8 +35,8 @@ var updateMedsTable = function (jsonMeds) {
                 "nome": jsonMeds[i].nome,
                 "ggrem": jsonMeds[i].ggrem,
                 "slug": jsonMeds[i].slug,
-                "atualizacao": jsonMeds[i].data_atualizacao,
-                "criacao": jsonMeds[i].data_criacao
+                "data_atualizacao": jsonMeds[i].data_atualizacao,
+                "data_criacao": jsonMeds[i].data_criacao
             }
         );
         jQuery('#medicamentos tbody').append(templateRender);

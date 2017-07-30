@@ -36,6 +36,7 @@ class Retrieve implements Base
         if (!empty($search)) {
             $criteria['search'] = $search;
         }
+
         $medicaments = ['data' => []];
         try {
             $list = $this->repository->findAll($criteria);
@@ -43,7 +44,9 @@ class Retrieve implements Base
                 $medicaments['data'][] = [
                     'slug' => $medicament->getSlug(),
                     'nome' => $medicament->getNome(),
-                    'ggrem' => $medicament->getGgrem()
+                    'ggrem' => $medicament->getGgrem(),
+                    'data_criacao' => $medicament->getCreatedAt()->format('d/m/Y H:i'),
+                    'data_atualizacao' => $medicament->isUpdated() ? $medicament->getUpdatedAt()->format('d/m/Y H:i') : '',
                 ];
             }
             return new JsonResponse($medicaments);
