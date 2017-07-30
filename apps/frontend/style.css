@@ -8354,6 +8354,10 @@ button.close {
   }
 }
 
+header {
+  margin: 30px 0;
+}
+
 #feedback>div {
   display: none;
 }

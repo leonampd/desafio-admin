@@ -1,4 +1,9 @@
 @import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+
+header {
+  margin: 30px 0;
+}
+
 #feedback {
   > div {
     display: none;
