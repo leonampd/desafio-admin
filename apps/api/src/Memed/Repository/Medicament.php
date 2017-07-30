@@ -93,7 +93,7 @@ class Medicament implements BaseRepository
     {
         $result = $this->connection
             ->fetchAll(
-                'SELECT * FROM historic WHERE medicament_id = ?',
+                'SELECT * FROM historic WHERE medicament_id = ? ORDER BY timestamp DESC',
                 array($medicament->getId())
             );
 
