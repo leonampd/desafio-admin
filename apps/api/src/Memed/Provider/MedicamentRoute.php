@@ -7,6 +7,7 @@
 namespace Leonam\Memed\Provider;
 
 use Leonam\Memed\Repository\Medicament;
+use Leonam\Memed\Resource\Medicaments\Search;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
@@ -15,7 +16,7 @@ use Leonam\Memed\Resource\Medicaments\Retrieve as RetrieveMedicament;
 use Leonam\Memed\Resource\Medicaments\Update as UpdateMedicament;
 use Leonam\Memed\Resource\Medicaments\RetrieveHistoric as RetrieveHistoricMedicament;
 use Leonam\Memed\Repository\Medicament as MedicamentRepository;
-use Silex\Application;
+use Leonam\Memed\Resource\Medicaments\Search as SearchMedicament;
 use Symfony\Component\HttpFoundation\Request;
 
 class MedicamentRoute implements ServiceProviderInterface

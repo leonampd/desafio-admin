@@ -20,13 +20,29 @@ class Medicament implements BaseRepository
         $this->connection = $connection;
     }
 
-    public function findAll():array
+    public function findAll(array $criteria):array
     {
         $list = [];
         try {
-            $rs = $this->connection->fetchAll('SELECT rowid, slug, ggrem, nome FROM medicaments');
+//            $rs = $this->connection->fetchAll('SELECT rowid, slug, ggrem, nome FROM medicaments');
 
-            foreach ($rs as $row) {
+            array_walk($criteria, function(&$item, $key){
+                $item = '%'.trim($item).'%';
+            });
+            $queryBuilder = $this->connection->createQueryBuilder();
+            $queryBuilder
+                ->select('rowid', 'slug', 'ggrem', 'nome')
+                ->from('medicaments');
+            if (count($criteria) > 0) {
+                 $queryBuilder->where(
+                     $queryBuilder->expr()->orX(
+                         $queryBuilder->expr()->like('nome', $this->connection->quote($criteria['search'], \PDO::PARAM_STR)),
+                         $queryBuilder->expr()->like('ggrem', $this->connection->quote($criteria['search'], \PDO::PARAM_STR))
+                     )
+                 );
+            }
+            $result = $this->connection->fetchAll($queryBuilder->getSQL());
+            foreach ($result as $row) {
                 $medicament = new MedicamentEntity($row['ggrem'], $row['nome']);
                 $medicament->setSlug($row['slug'])
                     ->setId($row['rowid']);

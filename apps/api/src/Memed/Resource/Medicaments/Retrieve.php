@@ -9,6 +9,7 @@ namespace Leonam\Memed\Resource\Medicaments;
 use Leonam\Memed\Repository\Medicament as MedicamentRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Respect\Validation\Validator as v;
 
 class Retrieve implements Base
 {
@@ -20,9 +21,25 @@ class Retrieve implements Base
 
     public function __invoke(Request $request = null): JsonResponse
     {
-        $medicaments = [];
+        $search = $request->query->get('search');
+
+        if (
+            v::notEmpty()->validate($search) &&
+            !(v::when(v::numeric(), v::positive(), v::stringType())->validate($search))
+        ) {
+            return new JsonResponse(
+                ['error' => ['code' => 400, 'message' => "Invalid search {$search} term"]],
+                400
+            );
+        }
+
+        $criteria = [];
+        if (!empty($search)) {
+            $criteria['search'] = $search;
+        }
+        $medicaments = ['data' => []];
         try {
-            $list = $this->repository->findAll();
+            $list = $this->repository->findAll($criteria);
             foreach ($list as $medicament) {
                 $medicaments['data'][] = [
                     'slug' => $medicament->getSlug(),
