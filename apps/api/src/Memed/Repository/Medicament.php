@@ -172,9 +172,14 @@ class Medicament implements BaseRepository
     {
         try {
             $updates = [];
+            $updatetimestamp = null;
             foreach ($historicItens as $historic) {
+                $updatetimestamp = $historic->getDate()->getTimestamp();
                 $updates[ $historic->getField() ] = $historic->getNewValue();
             }
+
+            $updates['data_atualizacao'] = $updatetimestamp;
+
             $this->connection->beginTransaction();
             $this->connection->update(
                 'medicaments',
