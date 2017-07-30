@@ -62,4 +62,40 @@ Lembre-se de alterar o README.md com as instruções para rodar o projeto.
 
 Boa sorte _and let’s code_!
 
+## Como rodar a solução:
+
+**Requisitos (Mac OSX):**
+
+- Docker for mac
+    - Docker-machine
+    - Docker-compose
+    
+**Rodando o projeto**
+
+- Clonar este repositório no seu diretório de projetos: `~/Sites` por exemplo.
+- Criar uma máquina virtual para rodar os containers do docker: `docker-machine create desafio-memed`
+- "Exportar" configurações da VM criada no passo 2 de modo que seja possível a interação entre a máquina host e guest (docker): `eval $(docker-machine env desafio-memed)`
+- Configurar o arquivo `/etc/hosts` atrelando endereços das aplicações e IP da máquina virtual. Para saber qual o ip da máquina basta rodar: `docker-machine ip desafio-memed`
+```
+api.desafio-memed.dev <IP da máquina>
+memed.dev <IP da máquina>
+```
+- Provisionar a VM e containers: `docker-compose up -d`
+- Acesse a API
+
+**Possíveis problemas ao rodar o projeto:**
+
+A aplicação web não funciona:
+
+Em alguns momentos, encontrei problemas para o provisionamento do container da aplicação web. Então, se os containers 
+subirem mas ao acessar a aplicação web nada acontecer vá até o diretório `/projeto/apps/frontent` e rode o servidor 
+embutido do PHP com `php -S localhost:9000` e acesse no seu navegador.
+
+Os dados não são recuperados/salvos no banco de dados:
+
+O motivo pode ser que o banco de dados usado é um BD Sqlite. Para que os dados sejam, persistidos principalmente, é
+é necessária permissão de escrita no arquivo do banco de dados (`<path do projeto>/apps/api/memed.db`): `chmod 777 memed.db`
+
+Obrigado!!!
+
 :m: Equipe Memed
