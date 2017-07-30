@@ -27,6 +27,7 @@ var MemedAPI = {
 var updateMedsTable = function (jsonMeds) {
     var template = jQuery('#linha-medicamento-template').html();
     Mustache.parse(template);
+    jQuery('#medicamentos tbody').html('');
     for (var i in jsonMeds) {
         var templateRender = Mustache.render(
             template,
@@ -106,7 +107,18 @@ var clickForMedsRow = function () {
     jQuery('#medicamentos tbody tr').on('click', openModal);
 }
 
+var searchMemed = function () {
+    var searchTerm = jQuery(this).val();
+    if (searchTerm.length === 0) {
+        MemedAPI.get('/medicaments', {}, updateMedsTable);
+    }
+    if (searchTerm.length > 2) {
+        MemedAPI.get('/medicaments?search=' + searchTerm, {}, updateMedsTable);
+    }
+}
+
 jQuery(document).ready(function(){
     MemedAPI.get('/medicaments', {}, updateMedsTable);
     jQuery('#modal-action-button').click(updateMedicament);
+    jQuery('#search').on('keyup', searchMemed)
 });

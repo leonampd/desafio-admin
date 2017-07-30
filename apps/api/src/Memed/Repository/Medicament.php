@@ -24,8 +24,6 @@ class Medicament implements BaseRepository
     {
         $list = [];
         try {
-//            $rs = $this->connection->fetchAll('SELECT rowid, slug, ggrem, nome FROM medicaments');
-
             array_walk($criteria, function (&$item, $key) {
                 $item = '%'.trim($item).'%';
             });
@@ -41,6 +39,8 @@ class Medicament implements BaseRepository
                      )
                  );
             }
+            $queryBuilder->orderBy('nome', 'ASC');
+
             $result = $this->connection->fetchAll($queryBuilder->getSQL());
             foreach ($result as $row) {
                 $medicament = new MedicamentEntity($row['ggrem'], $row['nome']);
