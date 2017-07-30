@@ -62,7 +62,7 @@ class Update implements Base
         $nomeInput = $request->request->get('nome') ?? '';
         if (
             !empty($nomeInput) &&
-            v::alnum()->validate($nomeInput) &&
+            v::noneOf(v::punct())->stringType()->validate($nomeInput) &&
             $nomeInput !== $medicament->getNome()
         ) {
             $medicamentUpdated->setNome($nomeInput);
